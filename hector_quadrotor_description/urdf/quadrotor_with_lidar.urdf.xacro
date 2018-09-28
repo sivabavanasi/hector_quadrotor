@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<robot name="quadrotor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+   
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+    
+    <!-- Included URDF Files -->
+    <xacro:include filename="$(find hector_quadrotor_description)/urdf/quadrotor_base.urdf.xacro" />
+    
+    <!-- Instantiate quadrotor_base_macro once (has no parameters atm) -->
+    <xacro:quadrotor_base_macro />
+    
+    <!-- Lidar mounted upside down below the quadrotor body -->
+    <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" />
+    <VLP-16 parent="base_link" name="laser0" topic="/pointcloud3" hz="10" samples="440" gpu="false">
+        <origin xyz="0.0 0.0 -0.097" rpy="${M_PI} 0 0" />
+    </VLP-16>
+    
+</robot>
